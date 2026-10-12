@@ -26,37 +26,86 @@
 
   <style>
     html { -webkit-text-size-adjust: 100%; }
-    body { -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+    body {
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+      font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
+    }
+
     .card { transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease; }
     .card:hover { transform: translateY(-2px); }
 
-    /* Intro: logo markazda, keyin navbarga o'tadi */
+    /* ---- Kontent intro paytida yashirin ---- */
     main, footer { transition: opacity .6s ease; }
     html.has-intro main,
     html.has-intro footer { opacity: 0; }
     #nav-link { transition: opacity .6s ease, color .15s ease; }
     html.has-intro #nav-link { opacity: 0; }
+    header { transition: border-color .5s ease; }
+    html.has-intro header { border-color: transparent; }
 
-    /* Markazda turganda: harflar chapdan o'ngga bo'yaladi va kattalashadi */
-    @keyframes brand-letter {
-      0%        { color: var(--c); transform: translateY(0) scale(1); }
-      12%       { color: var(--h); transform: translateY(-0.12em) scale(1.45); }
-      32%       { color: var(--h); transform: translateY(0) scale(1.12); }
-      60%, 100% { color: var(--c); transform: translateY(0) scale(1); }
+    /* ---- Navbar target (harflar) ---- */
+    #brand-inner {
+      font-size: .875rem;
+      font-weight: 600;
+      letter-spacing: normal;
     }
-    /* async -> qora, slides -> indigo (hozirgi rang) */
-    .ltr.a { --c: #0f172a; --h: #4f46e5; }
-    .ltr.b { --c: #4f46e5; --h: #6366f1; }
-    /* Markazda: harflar orasi kengroq */
-    #brand-inner { transition: letter-spacing .5s ease, margin-right .5s ease; }
-    html.has-intro #brand-inner {
-      letter-spacing: 0.14em;
-      margin-right: -0.14em;
+    #brand-inner .ltr { display: inline-block; }
+
+    /* ================= INTRO: liquid goo -> type -> flight ================= */
+    #intro {
+      position: fixed;
+      inset: 0;
+      z-index: 60;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none;
+      opacity: 0;
     }
-    html.has-intro #brand-inner .ltr {
+    #intro.is-visible { opacity: 1; }
+
+    #goo-word {
+      position: relative;
+      font-weight: 600;
+      font-size: clamp(2.25rem, 8.5vw, 3.75rem);
+      letter-spacing: normal;
+      line-height: 1;
+    }
+    #intro.is-liquid #goo-word { filter: url(#goo); }
+    #intro.is-crisp #goo-word { animation: goo-idle 3.6s ease-in-out infinite; }
+    #intro.is-flying #goo-word { animation: none; }
+
+    #goo-letters { display: flex; }
+
+    .g-ltr {
       display: inline-block;
-      animation: brand-letter 1.3s ease-in-out infinite;
-      animation-delay: calc(var(--i) * 0.075s);
+      color: #4f46e5;
+      will-change: transform, color;
+      transition: transform 760ms cubic-bezier(.22,.7,.24,1), color 550ms ease;
+    }
+    #goo-letters .g-ltr:not(:last-child) { margin-right: .1em; }
+
+    .blob {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 26px;
+      height: 26px;
+      margin: -13px 0 0 -13px;
+      border-radius: 50%;
+      background: #4f46e5;
+      will-change: transform;
+      transition: transform 820ms cubic-bezier(.22,.7,.24,1);
+    }
+
+    @keyframes goo-idle {
+      0%, 100% { transform: translateY(-2px); }
+      50%      { transform: translateY(2px); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      #intro { display: none !important; }
     }
   </style>
   <noscript><style>#brand { visibility: visible !important; }</style></noscript>
@@ -64,11 +113,34 @@
 
 <body class="min-h-screen bg-white font-sans text-slate-900 antialiased">
 
+  <!-- Goo filter -->
+  <svg width="0" height="0" style="position: absolute" aria-hidden="true" focusable="false">
+    <defs>
+      <filter id="goo" x="-80%" y="-170%" width="260%" height="440%" color-interpolation-filters="sRGB">
+        <feGaussianBlur in="SourceGraphic" stdDeviation="8" result="blur" />
+        <feColorMatrix in="blur" mode="matrix"
+          values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 23 -11" />
+      </filter>
+    </defs>
+  </svg>
+
+  <!-- Intro overlay (dekorativ) -->
+  <div id="intro" aria-hidden="true">
+    <div id="goo-word">
+      <div id="goo-letters">
+        <span class="g-ltr" style="--i:0">a</span><span class="g-ltr" style="--i:1">s</span><span class="g-ltr" style="--i:2">y</span><span class="g-ltr" style="--i:3">n</span><span class="g-ltr" style="--i:4">c</span><span class="g-ltr" style="--i:5">s</span><span class="g-ltr" style="--i:6">l</span><span class="g-ltr" style="--i:7">i</span><span class="g-ltr" style="--i:8">d</span><span class="g-ltr" style="--i:9">e</span><span class="g-ltr" style="--i:10">s</span>
+      </div>
+      <span class="blob" style="transform: translate(-120px, -34px)"></span>
+      <span class="blob" style="transform: translate(126px, 26px)"></span>
+      <span class="blob" style="transform: translate(18px, -62px)"></span>
+    </div>
+  </div>
+
   <!-- Header -->
   <header class="border-b border-slate-100">
     <div class="mx-auto flex max-w-6xl items-center justify-between px-6 py-5">
-      <a href="./" id="brand" class="flex items-center gap-2.5" style="visibility: hidden; will-change: transform;">
-        <span id="brand-inner" class="text-sm font-semibold tracking-tight"><span class="ltr a text-slate-900" style="--i:0">a</span><span class="ltr a text-slate-900" style="--i:1">s</span><span class="ltr a text-slate-900" style="--i:2">y</span><span class="ltr a text-slate-900" style="--i:3">n</span><span class="ltr a text-slate-900" style="--i:4">c</span><span class="ltr b text-indigo-600" style="--i:5">s</span><span class="ltr b text-indigo-600" style="--i:6">l</span><span class="ltr b text-indigo-600" style="--i:7">i</span><span class="ltr b text-indigo-600" style="--i:8">d</span><span class="ltr b text-indigo-600" style="--i:9">e</span><span class="ltr b text-indigo-600" style="--i:10">s</span></span>
+      <a href="./" id="brand" class="flex items-center gap-2.5" style="visibility: hidden;">
+        <span id="brand-inner"><span class="ltr" style="color:#0f172a">a</span><span class="ltr" style="color:#0f172a">s</span><span class="ltr" style="color:#0f172a">y</span><span class="ltr" style="color:#0f172a">n</span><span class="ltr" style="color:#0f172a">c</span><span class="ltr" style="color:#4f46e5">s</span><span class="ltr" style="color:#4f46e5">l</span><span class="ltr" style="color:#4f46e5">i</span><span class="ltr" style="color:#4f46e5">d</span><span class="ltr" style="color:#4f46e5">e</span><span class="ltr" style="color:#4f46e5">s</span></span>
       </a>
       <a href="https://async-boy.uz" id="nav-link"
          class="text-sm text-slate-400 hover:text-slate-900">
@@ -113,46 +185,123 @@
   <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
 
   <script>
-    /* Intro animatsiyasi: logo markazda katta -> 5 soniyadan so'ng navbarga joylashadi. */
+    /*
+     * Intro: suyuq (goo) massa -> harflar -> navbarga alohida uchish.
+     * Faqat index.html; tashqi kutubxonasiz.
+     */
     (function () {
+      var intro = document.getElementById('intro');
       var brand = document.getElementById('brand');
-      if (!brand) return;
+      if (!intro || !brand) return;
 
       var root = document.documentElement;
+      var gooWord = document.getElementById('goo-word');
+      var gl = Array.prototype.slice.call(intro.querySelectorAll('.g-ltr'));
+      var blobs = Array.prototype.slice.call(intro.querySelectorAll('.blob'));
+      var targets = Array.prototype.slice.call(brand.querySelectorAll('.ltr'));
+
       var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      var supportsGoo = !!(window.CSS && CSS.supports && CSS.supports('filter', 'url(#goo)'));
 
       function reveal() { root.classList.remove('has-intro'); }
 
-      if (reduce) {
-        brand.style.transform = 'none';
+      function fallback() {
         brand.style.visibility = 'visible';
+        if (intro.parentNode) intro.parentNode.removeChild(intro);
         reveal();
-        return;
       }
 
-      var rect = brand.getBoundingClientRect();
-      var dx = window.innerWidth / 2 - (rect.left + rect.width / 2);
-      var dy = window.innerHeight / 2 - (rect.top + rect.height / 2);
-      var scale = 3.2;
+      if (reduce) { fallback(); return; }
 
-      brand.style.transformOrigin = 'center center';
-      brand.style.transform = 'translate(' + dx + 'px,' + dy + 'px) scale(' + scale + ')';
-      brand.style.transition = 'opacity 700ms ease';
-      brand.style.opacity = '0';
-      brand.style.visibility = 'visible';
-      requestAnimationFrame(function () { brand.style.opacity = '1'; });
+      function start() {
+        // Harflarni markazga yig'ish (suyuq massa boshlanishi)
+        var wr = document.getElementById('goo-letters').getBoundingClientRect();
+        var cx = wr.left + wr.width / 2;
 
-      setTimeout(function () {
-        brand.style.transition = 'transform 900ms cubic-bezier(.22,.7,.24,1)';
-        requestAnimationFrame(function () { brand.style.transform = 'none'; });
-        reveal();
-        setTimeout(function () {
-          brand.style.transition = '';
-          brand.style.transformOrigin = '';
-          brand.style.opacity = '';
-          brand.style.willChange = '';
-        }, 950);
-      }, 5000);
+        gl.forEach(function (l) {
+          var r = l.getBoundingClientRect();
+          var dx = cx - (r.left + r.width / 2);
+          l.style.transition = 'none';
+          l.style.transform = 'translateX(' + dx + 'px) scale(.16)';
+        });
+
+        intro.classList.add('is-visible');
+        if (supportsGoo) intro.classList.add('is-liquid');
+
+        void gooWord.offsetWidth; // reflow
+
+        requestAnimationFrame(function () {
+          gl.forEach(function (l) {
+            l.style.transition = '';
+            l.style.transform = 'none';
+          });
+          blobs.forEach(function (b) { b.style.transform = 'translate(0,0) scale(0)'; });
+        });
+
+        // Suyuqlik qotib, harflar chapdan o'ngga haqiqiy rangga o'tadi
+        window.setTimeout(function () {
+          intro.classList.remove('is-liquid');
+          intro.classList.add('is-crisp');
+          gl.forEach(function (l, i) {
+            window.setTimeout(function () {
+              l.style.color = i < 5 ? '#0f172a' : '#4f46e5';
+            }, i * 42);
+          });
+        }, supportsGoo ? 900 : 300);
+      }
+
+      // Navbarga alohida-alohida uchish (FLIP). totalDelay (ms) qaytaradi.
+      function flight() {
+        intro.classList.add('is-flying');
+        void gooWord.offsetWidth;
+
+        var tRects = targets.map(function (t) { return t.getBoundingClientRect(); });
+        var totalDelay = 0;
+
+        gl.forEach(function (l, i) {
+          var r = l.getBoundingClientRect();
+          var t = tRects[i] || r;
+          var sc = r.width ? (t.width / r.width) : 1;
+          var tx = (t.left + t.width / 2) - (r.left + r.width / 2);
+          var ty = (t.top + t.height / 2) - (r.top + r.height / 2);
+          var delay = i * 45;
+          totalDelay = Math.max(totalDelay, delay);
+          l.style.transition = 'transform 720ms cubic-bezier(.34,1.28,.42,1) ' + delay + 'ms';
+          l.style.transform = 'translate(' + tx + 'px,' + ty + 'px) scale(' + sc + ')';
+        });
+
+        return totalDelay;
+      }
+
+      function run() {
+        try { start(); } catch (e) { fallback(); return; }
+
+        window.setTimeout(function () {
+          var totalDelay;
+          try { totalDelay = flight(); } catch (e) { fallback(); return; }
+
+          window.setTimeout(reveal, totalDelay + 320);
+          window.setTimeout(function () {
+            brand.style.visibility = 'visible';
+            if (intro.parentNode) intro.parentNode.removeChild(intro);
+          }, totalDelay + 780);
+        }, 5000);
+      }
+
+      if (document.fonts && document.fonts.ready) {
+        document.fonts.ready.then(run).catch(run);
+      } else {
+        run();
+      }
+
+      // Xavfsizlik tarmog'i: biror sabab bilan animatsiya uzilsa ham logo ko'rinadi.
+      window.setTimeout(function () {
+        if (brand.style.visibility !== 'visible') {
+          brand.style.visibility = 'visible';
+          if (intro.parentNode) intro.parentNode.removeChild(intro);
+          root.classList.remove('has-intro');
+        }
+      }, 9000);
     })();
   </script>
 </body>
