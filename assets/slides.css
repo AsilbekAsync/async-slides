@@ -1,0 +1,101 @@
+/* Slayd dvigateli uchun uslublar (Tailwind bilan birga ishlaydi). */
+
+:root {
+  --accent: #4f46e5;
+  --ink: #0f172a;
+  --line: #e2e8f0;
+  --bg: #ffffff;
+}
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* --- Slaydlar --- */
+.slide {
+  display: none;
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+
+.slide.is-active {
+  display: flex;
+  animation: slide-in .42s cubic-bezier(.22, .7, .24, 1) both;
+}
+
+@keyframes slide-in {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .slide.is-active { animation: none; }
+}
+
+/* --- Chrome (progress + tugmalar) --- */
+.progress {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  height: 3px;
+  width: 0;
+  background: var(--accent);
+  z-index: 60;
+  transition: width .3s cubic-bezier(.22, .7, .24, 1);
+}
+
+.nav-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 9999px;
+  border: 1px solid var(--line);
+  background: #fff;
+  color: var(--ink);
+  cursor: pointer;
+  font-size: 1.15rem;
+  line-height: 1;
+  transition: background .15s ease, color .15s ease, border-color .15s ease;
+}
+
+.nav-btn:hover:not(:disabled) {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+
+.nav-btn:disabled {
+  opacity: .35;
+  cursor: not-allowed;
+}
+
+.chrome { z-index: 40; }
+
+/* --- Chop etish / PDF eksport: barcha slaydlar ko'rinadi --- */
+@media print {
+  .chrome,
+  .progress { display: none !important; }
+
+  .slide {
+    display: flex !important;
+    min-height: auto;
+    height: auto;
+    padding: 2.5rem 0;
+    page-break-after: always;
+    break-after: page;
+    animation: none !important;
+  }
+
+  .slide:last-of-type { page-break-after: auto; break-after: auto; }
+
+  body { background: #fff; }
+}
