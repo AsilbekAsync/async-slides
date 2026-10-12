@@ -37,28 +37,18 @@
     #nav-link { transition: opacity .6s ease, color .15s ease; }
     html.has-intro #nav-link { opacity: 0; }
 
-    /* Markazda turganda mayin suzish + nafas olish + shimmer */
-    @keyframes brand-float {
-      0%, 100% { transform: translateY(-3px) scale(1); }
-      50%      { transform: translateY(3px) scale(1.03); }
+    /* Markazda turganda: harflar chapdan o'ngga bo'yaladi va kattalashadi */
+    @keyframes brand-letter {
+      0%        { color: #cbd5e1; transform: translateY(0) scale(1); }
+      12%       { color: #4f46e5; transform: translateY(-0.12em) scale(1.45); }
+      32%       { color: #4f46e5; transform: translateY(0) scale(1.12); }
+      60%, 100% { color: #cbd5e1; transform: translateY(0) scale(1); }
     }
-    @keyframes brand-shine {
-      0%   { background-position: 150% 50%; }
-      100% { background-position: -50% 50%; }
-    }
-    html.has-intro #brand-inner {
+    html.has-intro #brand-inner .ltr {
       display: inline-block;
-      background: linear-gradient(100deg, #0f172a 30%, #4f46e5 50%, #0f172a 70%);
-      background-size: 220% 100%;
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      -webkit-text-fill-color: transparent;
-      animation: brand-float 3.2s ease-in-out infinite, brand-shine 3.6s linear infinite;
-    }
-    html.has-intro #brand-inner span {
-      -webkit-text-fill-color: inherit;
-      color: inherit;
+      color: #cbd5e1;
+      animation: brand-letter 1.3s ease-in-out infinite;
+      animation-delay: calc(var(--i) * 0.075s);
     }
   </style>
   <noscript><style>#brand { visibility: visible !important; }</style></noscript>
@@ -70,7 +60,7 @@
   <header class="border-b border-slate-100">
     <div class="mx-auto flex max-w-6xl items-center justify-between px-6 py-5">
       <a href="./" id="brand" class="flex items-center gap-2.5" style="visibility: hidden; will-change: transform;">
-        <span id="brand-inner" class="text-sm font-semibold tracking-tight text-slate-900">async<span class="text-indigo-600">slides</span></span>
+        <span id="brand-inner" class="text-sm font-semibold tracking-tight"><span class="ltr text-slate-900" style="--i:0">a</span><span class="ltr text-slate-900" style="--i:1">s</span><span class="ltr text-slate-900" style="--i:2">y</span><span class="ltr text-slate-900" style="--i:3">n</span><span class="ltr text-slate-900" style="--i:4">c</span><span class="ltr text-indigo-600" style="--i:5">s</span><span class="ltr text-indigo-600" style="--i:6">l</span><span class="ltr text-indigo-600" style="--i:7">i</span><span class="ltr text-indigo-600" style="--i:8">d</span><span class="ltr text-indigo-600" style="--i:9">e</span><span class="ltr text-indigo-600" style="--i:10">s</span></span>
       </a>
       <a href="https://async-boy.uz" id="nav-link"
          class="text-sm text-slate-400 hover:text-slate-900">
