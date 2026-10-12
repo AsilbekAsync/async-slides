@@ -1,0 +1,102 @@
+@import "tailwindcss" source(none);
+@source "../index.html";
+@source "../assets/app.js";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+}
+
+/* ================= BASE ================= */
+html { -webkit-text-size-adjust: 100%; }
+body {
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  font-family: var(--font-sans);
+}
+
+/* ================= KARTOCHKALAR ================= */
+.card { transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease; }
+.card:hover { transform: translateY(-2px); }
+
+/* ================= INTRO PAYTIDA KONTENT YASHIRIN ================= */
+html.has-intro main,
+html.has-intro footer { opacity: 0; }
+#nav-link { transition: opacity .6s ease, color .15s ease; }
+html.has-intro #nav-link { opacity: 0; }
+header { transition: border-color .5s ease; }
+html.has-intro header { border-color: transparent; }
+
+/* ================= KONTENT BIRMA-BIR "ANIMATE-UP" ================= */
+.reveal { transition: opacity .6s ease, translate .62s cubic-bezier(.22,.7,.24,1); }
+html.has-intro .reveal { opacity: 0; translate: 0 18px; }
+.reveal.in { opacity: 1; translate: 0 0; }
+@media (prefers-reduced-motion: reduce) {
+  .reveal { transition: none; }
+  html.has-intro .reveal { opacity: 1; translate: none; }
+}
+
+/* ================= NAVBAR MATNI ================= */
+#brand-inner {
+  font-size: 1.125rem;
+  font-weight: 600;
+  letter-spacing: normal;
+}
+#brand-inner .ltr { display: inline-block; }
+
+/* ================= INTRO: markaz -> kutish -> navbarga ================= */
+#intro {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+#intro-word {
+  display: flex;
+  font-weight: 600;
+  font-size: clamp(2.5rem, 9vw, 4rem);
+  letter-spacing: normal;
+  line-height: 1;
+}
+#intro-word .g-ltr:not(:last-child) { margin-right: .05em; }
+
+.g-ltr {
+  display: inline-block;
+  color: #4f46e5;
+  opacity: 0;
+  transform: translateY(.4em);
+  will-change: transform, opacity, color;
+  transition: opacity .55s ease, transform .65s cubic-bezier(.22,.7,.24,1), color .45s ease;
+}
+
+/* ================= PASTDAGI PROGRESS ================= */
+#intro-progress {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 3px;
+  z-index: 61;
+  background: #eef2ff;
+  opacity: 0;
+  transition: opacity .4s ease;
+}
+#intro-progress.is-visible { opacity: 1; }
+#intro-progress .bar {
+  display: block;
+  height: 100%;
+  width: 0;
+  background: #4f46e5;
+}
+#intro-progress.is-run .bar { animation: progress-fill 5000ms linear forwards; }
+
+@keyframes progress-fill {
+  from { width: 0; }
+  to   { width: 100%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #intro, #intro-progress { display: none !important; }
+}
