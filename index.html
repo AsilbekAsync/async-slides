@@ -36,6 +36,30 @@
     html.has-intro footer { opacity: 0; }
     #nav-link { transition: opacity .6s ease, color .15s ease; }
     html.has-intro #nav-link { opacity: 0; }
+
+    /* Markazda turganda mayin suzish + nafas olish + shimmer */
+    @keyframes brand-float {
+      0%, 100% { transform: translateY(-3px) scale(1); }
+      50%      { transform: translateY(3px) scale(1.03); }
+    }
+    @keyframes brand-shine {
+      0%   { background-position: 150% 50%; }
+      100% { background-position: -50% 50%; }
+    }
+    html.has-intro #brand-inner {
+      display: inline-block;
+      background: linear-gradient(100deg, #0f172a 30%, #4f46e5 50%, #0f172a 70%);
+      background-size: 220% 100%;
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      -webkit-text-fill-color: transparent;
+      animation: brand-float 3.2s ease-in-out infinite, brand-shine 3.6s linear infinite;
+    }
+    html.has-intro #brand-inner span {
+      -webkit-text-fill-color: inherit;
+      color: inherit;
+    }
   </style>
   <noscript><style>#brand { visibility: visible !important; }</style></noscript>
 </head>
@@ -46,7 +70,7 @@
   <header class="border-b border-slate-100">
     <div class="mx-auto flex max-w-6xl items-center justify-between px-6 py-5">
       <a href="./" id="brand" class="flex items-center gap-2.5" style="visibility: hidden; will-change: transform;">
-        <span class="text-sm font-semibold tracking-tight text-slate-900">async<span class="text-indigo-600">slides</span></span>
+        <span id="brand-inner" class="text-sm font-semibold tracking-tight text-slate-900">async<span class="text-indigo-600">slides</span></span>
       </a>
       <a href="https://async-boy.uz" id="nav-link"
          class="text-sm text-slate-400 hover:text-slate-900">
@@ -115,7 +139,10 @@
 
       brand.style.transformOrigin = 'center center';
       brand.style.transform = 'translate(' + dx + 'px,' + dy + 'px) scale(' + scale + ')';
+      brand.style.transition = 'opacity 700ms ease';
+      brand.style.opacity = '0';
       brand.style.visibility = 'visible';
+      requestAnimationFrame(function () { brand.style.opacity = '1'; });
 
       setTimeout(function () {
         brand.style.transition = 'transform 900ms cubic-bezier(.22,.7,.24,1)';
@@ -124,6 +151,7 @@
         setTimeout(function () {
           brand.style.transition = '';
           brand.style.transformOrigin = '';
+          brand.style.opacity = '';
           brand.style.willChange = '';
         }, 950);
       }, 5000);
