@@ -21,7 +21,7 @@
 
   <div id="intro" aria-hidden="true">
     <div id="intro-word">
-      <span class="g-ltr">a</span><span class="g-ltr">s</span><span class="g-ltr">y</span><span class="g-ltr">n</span><span class="g-ltr">c</span><span class="g-ltr">s</span><span class="g-ltr">l</span><span class="g-ltr">i</span><span class="g-ltr">d</span><span class="g-ltr">e</span><span class="g-ltr">s</span>
+      <span class="g-ltr a">a</span><span class="g-ltr a">s</span><span class="g-ltr a">y</span><span class="g-ltr a">n</span><span class="g-ltr a">c</span><span class="g-ltr b">s</span><span class="g-ltr b">l</span><span class="g-ltr b">i</span><span class="g-ltr b">d</span><span class="g-ltr b">e</span><span class="g-ltr b">s</span>
     </div>
   </div>
   <div id="intro-progress" aria-hidden="true"><span class="bar"></span></div>
@@ -119,11 +119,6 @@
             l.style.opacity = '1';
             l.style.transform = 'none';
           }, i * STAGGER);
-        });
-        gl.forEach(function (l, i) {
-          window.setTimeout(function () {
-            l.style.color = i < 5 ? '#0f172a' : '#4f46e5';
-          }, 650 + i * 40);
         });
       }
 
