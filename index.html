@@ -44,6 +44,12 @@
       32%       { color: #4f46e5; transform: translateY(0) scale(1.12); }
       60%, 100% { color: #cbd5e1; transform: translateY(0) scale(1); }
     }
+    /* Markazda: harflar orasi kengroq */
+    #brand-inner { transition: letter-spacing .5s ease, margin-right .5s ease; }
+    html.has-intro #brand-inner {
+      letter-spacing: 0.14em;
+      margin-right: -0.14em;
+    }
     html.has-intro #brand-inner .ltr {
       display: inline-block;
       color: #cbd5e1;
