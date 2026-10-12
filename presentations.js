@@ -16,13 +16,5 @@
  *   tags        — teglar massivi (ixtiyoriy)
  */
 window.PRESENTATIONS = [
-  {
-    title: "Veb-texnologiyalar asoslari",
-    file: "presentations/veb-asoslari.html",
-    description: "HTML, CSS va JavaScript — zamonaviy veb-sahifalar qanday quriladi. Namuna taqdimot.",
-    course: "Universitet taqdimoti",
-    author: "Async Boy",
-    date: "2026-10-12",
-    tags: ["Web", "HTML", "CSS", "JavaScript"]
-  }
+  
 ];
