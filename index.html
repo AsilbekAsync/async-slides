@@ -36,13 +36,21 @@
     .card:hover { transform: translateY(-2px); }
 
     /* ---- Intro paytida kontent yashirin ---- */
-    main, footer { transition: opacity .6s ease; }
     html.has-intro main,
     html.has-intro footer { opacity: 0; }
     #nav-link { transition: opacity .6s ease, color .15s ease; }
     html.has-intro #nav-link { opacity: 0; }
     header { transition: border-color .5s ease; }
     html.has-intro header { border-color: transparent; }
+
+    /* ---- Kontent birma-bir "animate-up" ---- */
+    .reveal { transition: opacity .6s ease, translate .62s cubic-bezier(.22,.7,.24,1); }
+    html.has-intro .reveal { opacity: 0; translate: 0 18px; }
+    .reveal.in { opacity: 1; translate: 0 0; }
+    @media (prefers-reduced-motion: reduce) {
+      .reveal { transition: none; }
+      html.has-intro .reveal { opacity: 1; translate: none; }
+    }
 
     /* ---- Navbar matni (kattaroq) ---- */
     #brand-inner {
@@ -135,13 +143,13 @@
 
     <!-- Hero -->
     <section class="py-16 sm:py-20">
-      <h1 class="text-4xl font-bold tracking-tight text-slate-900 sm:text-5xl">Taqdimotlar</h1>
-      <p class="mt-3 text-slate-500">Universitet uchun HTML taqdimotlar.</p>
+      <h1 class="reveal text-4xl font-bold tracking-tight text-slate-900 sm:text-5xl">Taqdimotlar</h1>
+      <p class="reveal mt-3 text-slate-500">Universitet uchun HTML taqdimotlar.</p>
     </section>
 
     <!-- Roster -->
     <section class="pb-20">
-      <div class="mb-6 border-t border-slate-100 pt-6">
+      <div class="reveal mb-6 border-t border-slate-100 pt-6">
         <p id="deck-status" class="text-sm text-slate-400">Yuklanmoqda…</p>
       </div>
 
@@ -158,7 +166,7 @@
   <!-- Footer -->
   <footer class="border-t border-slate-100">
     <div class="mx-auto max-w-6xl px-6 py-8 text-sm text-slate-400">
-      <p><span>&copy;</span> <span id="year">2026</span> async-boy.uz</p>
+      <p class="reveal"><span>&copy;</span> <span id="year">2026</span> async-boy.uz</p>
     </div>
   </footer>
 
@@ -186,7 +194,17 @@
       var WAIT = 5000;      // markazda kutish (ms)
       var STAGGER = 45;     // harflar orasidagi kechikish (ms)
 
-      function reveal() { root.classList.remove('has-intro'); }
+      function reveal() {
+        root.classList.remove('has-intro');
+        var els = document.querySelectorAll('.reveal');
+        Array.prototype.forEach.call(els, function (el, i) {
+          el.style.transitionDelay = (i * 70) + 'ms';
+          el.classList.add('in');
+        });
+        window.setTimeout(function () {
+          Array.prototype.forEach.call(els, function (el) { el.style.transitionDelay = ''; });
+        }, 800 + els.length * 70);
+      }
 
       function cleanup() {
         brand.style.visibility = 'visible';
