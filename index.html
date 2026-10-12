@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Taqdimotlar — slides.async-boy.uz</title>
+  <title>Taqdimotlar</title>
   <meta name="description" content="Universitet uchun HTML taqdimotlar to'plami. slides.async-boy.uz" />
   <meta name="theme-color" content="#ffffff" />
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2224%22 fill=%22%234f46e5%22/><text x=%2250%22 y=%2269%22 font-size=%2258%22 text-anchor=%22middle%22 fill=%22white%22 font-family=%22sans-serif%22 font-weight=%22bold%22>A</text></svg>" />
@@ -37,12 +37,7 @@
   <header class="border-b border-slate-100">
     <div class="mx-auto flex max-w-6xl items-center justify-between px-6 py-5">
       <a href="./" class="flex items-center gap-2.5">
-        <span class="flex h-8 w-8 items-center justify-center rounded-lg bg-indigo-600 text-sm font-bold text-white">A</span>
         <span class="text-sm font-semibold tracking-tight text-slate-900">async<span class="text-indigo-600">slides</span></span>
-      </a>
-      <a href="https://async-boy.uz"
-         class="hidden text-sm text-slate-400 transition-colors hover:text-slate-900 sm:block">
-        async-boy.uz ↗
       </a>
     </div>
   </header>
@@ -50,27 +45,14 @@
   <main class="mx-auto max-w-6xl px-6">
 
     <!-- Hero -->
-    <section class="py-14 sm:py-20">
-      <p class="text-xs font-semibold uppercase tracking-[0.22em] text-indigo-600">Universitet taqdimotlari</p>
-      <h1 class="mt-5 max-w-3xl text-4xl font-extrabold leading-[1.1] tracking-tight text-slate-900 sm:text-5xl">
-        HTML'da yozilgan taqdimotlar to'plami
-      </h1>
-      <p class="mt-5 max-w-2xl text-base leading-relaxed text-slate-500 sm:text-lg">
-        Har bir taqdimot toza HTML, Tailwind CSS va ozgina JavaScript'dan iborat.
-        Klaviatura bilan boshqariladi, telefonda ishlaydi va PDF'ga eksport qilinadi.
-      </p>
-
-      <div class="mt-8 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-slate-400">
-        <span class="flex items-center gap-2"><kbd class="rounded-md border border-slate-200 bg-slate-50 px-2 py-0.5 font-mono text-[11px] text-slate-500">←</kbd><kbd class="rounded-md border border-slate-200 bg-slate-50 px-2 py-0.5 font-mono text-[11px] text-slate-500">→</kbd> navigatsiya</span>
-        <span class="flex items-center gap-2"><kbd class="rounded-md border border-slate-200 bg-slate-50 px-2 py-0.5 font-mono text-[11px] text-slate-500">F</kbd> to'liq ekran</span>
-        <span class="flex items-center gap-2"><kbd class="rounded-md border border-slate-200 bg-slate-50 px-2 py-0.5 font-mono text-[11px] text-slate-500">Ctrl</kbd><span>+</span><kbd class="rounded-md border border-slate-200 bg-slate-50 px-2 py-0.5 font-mono text-[11px] text-slate-500">P</kbd> PDF saqlash</span>
-      </div>
+    <section class="py-16 sm:py-20">
+      <h1 class="text-4xl font-bold tracking-tight text-slate-900 sm:text-5xl">Taqdimotlar</h1>
+      <p class="mt-3 text-slate-500">Universitet uchun HTML taqdimotlar.</p>
     </section>
 
     <!-- Roster -->
     <section class="pb-20">
-      <div class="mb-6 flex items-baseline justify-between border-t border-slate-100 pt-8">
-        <h2 class="text-sm font-semibold tracking-tight text-slate-900">Barcha taqdimotlar</h2>
+      <div class="mb-6 border-t border-slate-100 pt-6">
         <p id="deck-status" class="text-sm text-slate-400">Yuklanmoqda…</p>
       </div>
 
@@ -86,9 +68,8 @@
 
   <!-- Footer -->
   <footer class="border-t border-slate-100">
-    <div class="mx-auto flex max-w-6xl flex-col items-center justify-between gap-2 px-6 py-8 text-sm text-slate-400 sm:flex-row">
-      <p>© <span id="year">2026</span> async-boy.uz</p>
-      <p>HTML · Tailwind CSS · JavaScript</p>
+    <div class="mx-auto max-w-6xl px-6 py-8 text-sm text-slate-400">
+      <p><span>&copy;</span> <span id="year">2026</span> async-boy.uz</p>
     </div>
   </footer>
 
