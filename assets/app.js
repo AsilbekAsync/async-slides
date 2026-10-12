@@ -1,4 +1,3 @@
-/* Bosh sahifa: taqdimotlar ro'yxatini render qilish. */
 (function () {
   'use strict';
 

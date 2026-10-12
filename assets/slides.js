@@ -1,16 +1,3 @@
-/*
- * Slayd dvigateli.
- *
- * Ishlatilishi:
- *   <main id="deck">
- *     <section class="slide">...</section>
- *     <section class="slide">...</section>
- *   </main>
- *
- * Boshqaruv:
- *   ->  <-  Space  PageUp/PageDown  Home/End  |  F = to'liq ekran  |  swipe
- *   Har bir slayd '#N' hash orqali havola qilinadi.
- */
 (function () {
   'use strict';
 
@@ -65,11 +52,9 @@
   function next() { go(index + 1); }
   function prev() { go(index - 1); }
 
-  // --- tugmalar ---
   if (nextBtn) nextBtn.addEventListener('click', next);
   if (prevBtn) prevBtn.addEventListener('click', prev);
 
-  // --- klaviatura ---
   window.addEventListener('keydown', function (e) {
     if (e.metaKey || e.ctrlKey || e.altKey) return;
     switch (e.key) {
@@ -92,8 +77,8 @@
     }
   });
 
-  // --- swipe (mobil) ---
   var startX = 0, startY = 0, tracking = false;
+
   deck.addEventListener('touchstart', function (e) {
     if (e.touches.length !== 1) return;
     startX = e.touches[0].clientX;
@@ -112,7 +97,6 @@
     }
   }, { passive: true });
 
-  // --- to'liq ekran ---
   function toggleFullscreen() {
     var el = document.documentElement;
     if (!document.fullscreenElement) {
@@ -123,7 +107,6 @@
   }
   if (fsBtn) fsBtn.addEventListener('click', toggleFullscreen);
 
-  // --- hash (havola / orqaga-qaytish) ---
   window.addEventListener('hashchange', function () { go(readHash(), false); });
 
   index = readHash();

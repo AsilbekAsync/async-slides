@@ -11,7 +11,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Lobster&display=swap" rel="stylesheet" />
 
   <link rel="stylesheet" href="assets/app.css" />
   <noscript><style>#brand { visibility: visible !important; }</style></noscript>
@@ -19,22 +19,19 @@
 
 <body class="min-h-screen bg-white font-sans text-slate-900 antialiased">
 
-  <!-- Intro overlay (dekorativ) -->
   <div id="intro" aria-hidden="true">
     <div id="intro-word">
-      <span class="g-ltr" style="--i:0">a</span><span class="g-ltr" style="--i:1">s</span><span class="g-ltr" style="--i:2">y</span><span class="g-ltr" style="--i:3">n</span><span class="g-ltr" style="--i:4">c</span><span class="g-ltr" style="--i:5">s</span><span class="g-ltr" style="--i:6">l</span><span class="g-ltr" style="--i:7">i</span><span class="g-ltr" style="--i:8">d</span><span class="g-ltr" style="--i:9">e</span><span class="g-ltr" style="--i:10">s</span>
+      <span class="g-ltr">a</span><span class="g-ltr">s</span><span class="g-ltr">y</span><span class="g-ltr">n</span><span class="g-ltr">c</span><span class="g-ltr">s</span><span class="g-ltr">l</span><span class="g-ltr">i</span><span class="g-ltr">d</span><span class="g-ltr">e</span><span class="g-ltr">s</span>
     </div>
   </div>
   <div id="intro-progress" aria-hidden="true"><span class="bar"></span></div>
 
-  <!-- Header -->
   <header class="border-b border-slate-100">
     <div class="mx-auto flex max-w-6xl items-center justify-between px-6 py-5">
       <a href="./" id="brand" class="flex items-center gap-2.5" style="visibility: hidden;">
         <span id="brand-inner"><span class="ltr" style="color:#0f172a">a</span><span class="ltr" style="color:#0f172a">s</span><span class="ltr" style="color:#0f172a">y</span><span class="ltr" style="color:#0f172a">n</span><span class="ltr" style="color:#0f172a">c</span><span class="ltr" style="color:#4f46e5">s</span><span class="ltr" style="color:#4f46e5">l</span><span class="ltr" style="color:#4f46e5">i</span><span class="ltr" style="color:#4f46e5">d</span><span class="ltr" style="color:#4f46e5">e</span><span class="ltr" style="color:#4f46e5">s</span></span>
       </a>
-      <a href="https://async-boy.uz" id="nav-link"
-         class="text-sm text-slate-400 hover:text-slate-900">
+      <a href="https://async-boy.uz" id="nav-link" class="text-sm text-slate-400 hover:text-slate-900">
         async-boy.uz
       </a>
     </div>
@@ -42,13 +39,11 @@
 
   <main class="mx-auto max-w-6xl px-6">
 
-    <!-- Hero -->
     <section class="py-16 sm:py-20">
       <h1 class="reveal text-4xl font-bold tracking-tight text-slate-900 sm:text-5xl">Taqdimotlar</h1>
       <p class="reveal mt-3 text-slate-500">Universitet uchun HTML taqdimotlar.</p>
     </section>
 
-    <!-- Roster -->
     <section class="pb-20">
       <div class="reveal mb-6 border-t border-slate-100 pt-6">
         <p id="deck-status" class="text-sm text-slate-400">Yuklanmoqda…</p>
@@ -64,7 +59,6 @@
     </section>
   </main>
 
-  <!-- Footer -->
   <footer class="border-t border-slate-100">
     <div class="mx-auto max-w-6xl px-6 py-8 text-sm text-slate-400">
       <p class="reveal"><span>&copy;</span> <span id="year">2026</span> async-boy.uz</p>
@@ -76,10 +70,6 @@
   <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
 
   <script>
-    /*
-     * Intro: markazda katta matn -> kutish (pastda progress) -> navbarga qaytish.
-     * Faqat index.html; tashqi kutubxonasiz.
-     */
     (function () {
       var intro = document.getElementById('intro');
       var progress = document.getElementById('intro-progress');
@@ -87,13 +77,12 @@
       if (!intro || !brand) return;
 
       var root = document.documentElement;
-      var word = document.getElementById('intro-word');
       var gl = Array.prototype.slice.call(intro.querySelectorAll('.g-ltr'));
       var targets = Array.prototype.slice.call(brand.querySelectorAll('.ltr'));
 
       var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      var WAIT = 5000;      // markazda kutish (ms)
-      var STAGGER = 45;     // harflar orasidagi kechikish (ms)
+      var WAIT = 5000;
+      var STAGGER = 45;
 
       function reveal() {
         root.classList.remove('has-intro');
@@ -123,16 +112,14 @@
       function start() {
         if (progress) {
           progress.classList.add('is-visible');
-          progress.classList.add('is-run');   // 5s davomida to'ladi
+          progress.classList.add('is-run');
         }
-        // Chapdan o'ngga paydo bo'lish
         gl.forEach(function (l, i) {
           window.setTimeout(function () {
             l.style.opacity = '1';
             l.style.transform = 'none';
           }, i * STAGGER);
         });
-        // Rang: async -> qora, slides -> indigo (chapdan o'ngga)
         gl.forEach(function (l, i) {
           window.setTimeout(function () {
             l.style.color = i < 5 ? '#0f172a' : '#4f46e5';
@@ -140,7 +127,6 @@
         });
       }
 
-      // Har bir harfni navbardagi joyiga alohida uchirish (FLIP).
       function flight() {
         var tRects = targets.map(function (t) { return t.getBoundingClientRect(); });
         var totalDelay = 0;
@@ -180,7 +166,6 @@
         run();
       }
 
-      // Xavfsizlik tarmog'i
       window.setTimeout(function () {
         if (brand.style.visibility !== 'visible') { cleanup(); reveal(); }
       }, WAIT + 4000);
