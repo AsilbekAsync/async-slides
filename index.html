@@ -35,7 +35,7 @@
     .card { transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease; }
     .card:hover { transform: translateY(-2px); }
 
-    /* ---- Kontent intro paytida yashirin ---- */
+    /* ---- Intro paytida kontent yashirin ---- */
     main, footer { transition: opacity .6s ease; }
     html.has-intro main,
     html.has-intro footer { opacity: 0; }
@@ -44,15 +44,15 @@
     header { transition: border-color .5s ease; }
     html.has-intro header { border-color: transparent; }
 
-    /* ---- Navbar target (harflar) ---- */
+    /* ---- Navbar matni (kattaroq) ---- */
     #brand-inner {
-      font-size: .875rem;
+      font-size: 1.125rem;
       font-weight: 600;
       letter-spacing: normal;
     }
     #brand-inner .ltr { display: inline-block; }
 
-    /* ================= INTRO: liquid goo -> type -> flight ================= */
+    /* ================= INTRO: markaz -> kutish -> navbarga ================= */
     #intro {
       position: fixed;
       inset: 0;
@@ -61,51 +61,48 @@
       align-items: center;
       justify-content: center;
       pointer-events: none;
-      opacity: 0;
     }
-    #intro.is-visible { opacity: 1; }
-
-    #goo-word {
-      position: relative;
+    #intro-word {
+      display: flex;
       font-weight: 600;
-      font-size: clamp(2.25rem, 8.5vw, 3.75rem);
+      font-size: clamp(2.5rem, 9vw, 4rem);
       letter-spacing: normal;
       line-height: 1;
     }
-    #intro.is-liquid #goo-word { filter: url(#goo); }
-    #intro.is-crisp #goo-word { animation: goo-idle 3.6s ease-in-out infinite; }
-    #intro.is-flying #goo-word { animation: none; }
-
-    #goo-letters { display: flex; }
+    #intro-word .g-ltr:not(:last-child) { margin-right: .05em; }
 
     .g-ltr {
       display: inline-block;
       color: #4f46e5;
-      will-change: transform, color;
-      transition: transform 760ms cubic-bezier(.22,.7,.24,1), color 550ms ease;
+      opacity: 0;
+      transform: translateY(.4em);
+      will-change: transform, opacity, color;
+      transition: opacity .55s ease, transform .65s cubic-bezier(.22,.7,.24,1), color .45s ease;
     }
-    #goo-letters .g-ltr:not(:last-child) { margin-right: .1em; }
 
-    .blob {
-      position: absolute;
-      left: 50%;
-      top: 50%;
-      width: 26px;
-      height: 26px;
-      margin: -13px 0 0 -13px;
-      border-radius: 50%;
+    /* ---- Pastdagi progress ---- */
+    #intro-progress {
+      position: fixed;
+      left: 0; right: 0; bottom: 0;
+      height: 3px;
+      z-index: 61;
+      background: #eef2ff;
+      opacity: 0;
+      transition: opacity .4s ease;
+    }
+    #intro-progress.is-visible { opacity: 1; }
+    #intro-progress .bar {
+      display: block;
+      height: 100%;
+      width: 0;
       background: #4f46e5;
-      will-change: transform;
-      transition: transform 820ms cubic-bezier(.22,.7,.24,1);
     }
+    #intro-progress.is-run .bar { animation: progress-fill 5000ms linear forwards; }
 
-    @keyframes goo-idle {
-      0%, 100% { transform: translateY(-2px); }
-      50%      { transform: translateY(2px); }
-    }
+    @keyframes progress-fill { from { width: 0; } to { width: 100%; } }
 
     @media (prefers-reduced-motion: reduce) {
-      #intro { display: none !important; }
+      #intro, #intro-progress { display: none !important; }
     }
   </style>
   <noscript><style>#brand { visibility: visible !important; }</style></noscript>
@@ -113,28 +110,13 @@
 
 <body class="min-h-screen bg-white font-sans text-slate-900 antialiased">
 
-  <!-- Goo filter -->
-  <svg width="0" height="0" style="position: absolute" aria-hidden="true" focusable="false">
-    <defs>
-      <filter id="goo" x="-80%" y="-170%" width="260%" height="440%" color-interpolation-filters="sRGB">
-        <feGaussianBlur in="SourceGraphic" stdDeviation="8" result="blur" />
-        <feColorMatrix in="blur" mode="matrix"
-          values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 23 -11" />
-      </filter>
-    </defs>
-  </svg>
-
   <!-- Intro overlay (dekorativ) -->
   <div id="intro" aria-hidden="true">
-    <div id="goo-word">
-      <div id="goo-letters">
-        <span class="g-ltr" style="--i:0">a</span><span class="g-ltr" style="--i:1">s</span><span class="g-ltr" style="--i:2">y</span><span class="g-ltr" style="--i:3">n</span><span class="g-ltr" style="--i:4">c</span><span class="g-ltr" style="--i:5">s</span><span class="g-ltr" style="--i:6">l</span><span class="g-ltr" style="--i:7">i</span><span class="g-ltr" style="--i:8">d</span><span class="g-ltr" style="--i:9">e</span><span class="g-ltr" style="--i:10">s</span>
-      </div>
-      <span class="blob" style="transform: translate(-120px, -34px)"></span>
-      <span class="blob" style="transform: translate(126px, 26px)"></span>
-      <span class="blob" style="transform: translate(18px, -62px)"></span>
+    <div id="intro-word">
+      <span class="g-ltr" style="--i:0">a</span><span class="g-ltr" style="--i:1">s</span><span class="g-ltr" style="--i:2">y</span><span class="g-ltr" style="--i:3">n</span><span class="g-ltr" style="--i:4">c</span><span class="g-ltr" style="--i:5">s</span><span class="g-ltr" style="--i:6">l</span><span class="g-ltr" style="--i:7">i</span><span class="g-ltr" style="--i:8">d</span><span class="g-ltr" style="--i:9">e</span><span class="g-ltr" style="--i:10">s</span>
     </div>
   </div>
+  <div id="intro-progress" aria-hidden="true"><span class="bar"></span></div>
 
   <!-- Header -->
   <header class="border-b border-slate-100">
@@ -186,75 +168,61 @@
 
   <script>
     /*
-     * Intro: suyuq (goo) massa -> harflar -> navbarga alohida uchish.
+     * Intro: markazda katta matn -> kutish (pastda progress) -> navbarga qaytish.
      * Faqat index.html; tashqi kutubxonasiz.
      */
     (function () {
       var intro = document.getElementById('intro');
+      var progress = document.getElementById('intro-progress');
       var brand = document.getElementById('brand');
       if (!intro || !brand) return;
 
       var root = document.documentElement;
-      var gooWord = document.getElementById('goo-word');
+      var word = document.getElementById('intro-word');
       var gl = Array.prototype.slice.call(intro.querySelectorAll('.g-ltr'));
-      var blobs = Array.prototype.slice.call(intro.querySelectorAll('.blob'));
       var targets = Array.prototype.slice.call(brand.querySelectorAll('.ltr'));
 
       var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      var supportsGoo = !!(window.CSS && CSS.supports && CSS.supports('filter', 'url(#goo)'));
+      var WAIT = 5000;      // markazda kutish (ms)
+      var STAGGER = 45;     // harflar orasidagi kechikish (ms)
 
       function reveal() { root.classList.remove('has-intro'); }
 
-      function fallback() {
+      function cleanup() {
         brand.style.visibility = 'visible';
         if (intro.parentNode) intro.parentNode.removeChild(intro);
+        if (progress && progress.parentNode) progress.parentNode.removeChild(progress);
+      }
+
+      function fallback() {
+        cleanup();
         reveal();
       }
 
       if (reduce) { fallback(); return; }
 
       function start() {
-        // Harflarni markazga yig'ish (suyuq massa boshlanishi)
-        var wr = document.getElementById('goo-letters').getBoundingClientRect();
-        var cx = wr.left + wr.width / 2;
-
-        gl.forEach(function (l) {
-          var r = l.getBoundingClientRect();
-          var dx = cx - (r.left + r.width / 2);
-          l.style.transition = 'none';
-          l.style.transform = 'translateX(' + dx + 'px) scale(.16)';
-        });
-
-        intro.classList.add('is-visible');
-        if (supportsGoo) intro.classList.add('is-liquid');
-
-        void gooWord.offsetWidth; // reflow
-
-        requestAnimationFrame(function () {
-          gl.forEach(function (l) {
-            l.style.transition = '';
+        if (progress) {
+          progress.classList.add('is-visible');
+          progress.classList.add('is-run');   // 5s davomida to'ladi
+        }
+        // Chapdan o'ngga paydo bo'lish
+        gl.forEach(function (l, i) {
+          window.setTimeout(function () {
+            l.style.opacity = '1';
             l.style.transform = 'none';
-          });
-          blobs.forEach(function (b) { b.style.transform = 'translate(0,0) scale(0)'; });
+          }, i * STAGGER);
         });
-
-        // Suyuqlik qotib, harflar chapdan o'ngga haqiqiy rangga o'tadi
-        window.setTimeout(function () {
-          intro.classList.remove('is-liquid');
-          intro.classList.add('is-crisp');
-          gl.forEach(function (l, i) {
-            window.setTimeout(function () {
-              l.style.color = i < 5 ? '#0f172a' : '#4f46e5';
-            }, i * 42);
-          });
-        }, supportsGoo ? 900 : 300);
+        // Rang: async -> qora, slides -> indigo (chapdan o'ngga)
+        gl.forEach(function (l, i) {
+          window.setTimeout(function () {
+            l.style.color = i < 5 ? '#0f172a' : '#4f46e5';
+          }, 650 + i * 40);
+        });
       }
 
-      // Navbarga alohida-alohida uchish (FLIP). totalDelay (ms) qaytaradi.
+      // Har bir harfni navbardagi joyiga alohida uchirish (FLIP).
       function flight() {
-        intro.classList.add('is-flying');
-        void gooWord.offsetWidth;
-
         var tRects = targets.map(function (t) { return t.getBoundingClientRect(); });
         var totalDelay = 0;
 
@@ -264,7 +232,7 @@
           var sc = r.width ? (t.width / r.width) : 1;
           var tx = (t.left + t.width / 2) - (r.left + r.width / 2);
           var ty = (t.top + t.height / 2) - (r.top + r.height / 2);
-          var delay = i * 45;
+          var delay = i * STAGGER;
           totalDelay = Math.max(totalDelay, delay);
           l.style.transition = 'transform 720ms cubic-bezier(.34,1.28,.42,1) ' + delay + 'ms';
           l.style.transform = 'translate(' + tx + 'px,' + ty + 'px) scale(' + sc + ')';
@@ -277,15 +245,14 @@
         try { start(); } catch (e) { fallback(); return; }
 
         window.setTimeout(function () {
+          if (progress) progress.classList.remove('is-visible');
+
           var totalDelay;
           try { totalDelay = flight(); } catch (e) { fallback(); return; }
 
           window.setTimeout(reveal, totalDelay + 320);
-          window.setTimeout(function () {
-            brand.style.visibility = 'visible';
-            if (intro.parentNode) intro.parentNode.removeChild(intro);
-          }, totalDelay + 780);
-        }, 5000);
+          window.setTimeout(cleanup, totalDelay + 800);
+        }, WAIT);
       }
 
       if (document.fonts && document.fonts.ready) {
@@ -294,14 +261,10 @@
         run();
       }
 
-      // Xavfsizlik tarmog'i: biror sabab bilan animatsiya uzilsa ham logo ko'rinadi.
+      // Xavfsizlik tarmog'i
       window.setTimeout(function () {
-        if (brand.style.visibility !== 'visible') {
-          brand.style.visibility = 'visible';
-          if (intro.parentNode) intro.parentNode.removeChild(intro);
-          root.classList.remove('has-intro');
-        }
-      }, 9000);
+        if (brand.style.visibility !== 'visible') { cleanup(); reveal(); }
+      }, WAIT + 4000);
     })();
   </script>
 </body>
