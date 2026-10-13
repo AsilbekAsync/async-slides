@@ -81,19 +81,19 @@
       var targets = Array.prototype.slice.call(brand.querySelectorAll('.ltr'));
 
       var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      var WAIT = 5000;
+      var WAIT = 2000;
       var STAGGER = 45;
 
       function reveal() {
         root.classList.remove('has-intro');
         var els = document.querySelectorAll('.reveal');
         Array.prototype.forEach.call(els, function (el, i) {
-          el.style.transitionDelay = (i * 70) + 'ms';
+          el.style.transitionDelay = (i * 100) + 'ms';
           el.classList.add('in');
         });
         window.setTimeout(function () {
           Array.prototype.forEach.call(els, function (el) { el.style.transitionDelay = ''; });
-        }, 800 + els.length * 70);
+        }, 800 + els.length * 100);
       }
 
       function cleanup() {
