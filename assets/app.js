@@ -33,7 +33,7 @@
     if (item.date) meta.push(esc(formatDate(item.date)));
 
     return [
-      '<a href="' + esc(item.file) + '" class="reveal card group relative flex flex-col rounded-2xl border border-slate-200 bg-white p-6 hover:border-slate-300 hover:shadow-[0_18px_50px_-24px_rgba(15,23,42,0.35)]">',
+      '<a target="_blank" href="' + esc(item.file) + '" class="reveal card group relative flex flex-col rounded-2xl border border-slate-200 bg-white p-6 hover:border-slate-300 hover:shadow-[0_18px_50px_-24px_rgba(15,23,42,0.35)]">',
       '  <div class="flex items-start justify-between">',
       '    <span class="flex h-9 w-9 items-center justify-center rounded-xl bg-indigo-50 text-sm font-bold text-indigo-600">' + (i + 1) + '</span>',
       '    <span class="translate-x-0 text-slate-300 transition-all duration-200 group-hover:translate-x-0.5 group-hover:text-indigo-500" aria-hidden="true">&rarr;</span>',
